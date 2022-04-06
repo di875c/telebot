@@ -93,3 +93,8 @@ class Location(CreateTracker):
             save_data_from_arcgis(latitude=self.latitude, longitude=self.longitude, location_id=self.pk)
         else:
             save_data_from_arcgis.delay(latitude=self.latitude, longitude=self.longitude, location_id=self.pk)
+
+class Currency(CreateTracker):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_request = models.DateField()
+    currensy_response = models.JSONField()
