@@ -48,8 +48,8 @@ def setup_dispatcher(dp):
     dp.add_handler(location_handlers.conv_handler)
 
     # currency
-    dp.add_handler(CommandHandler("request_currency", currency_handlers.request_currency))
-    dp.add_handler(CallbackQueryHandler(currency_handlers.currency_handler, pattern=f"EUR"))
+    dp.add_handler(currency_handlers.currency_conversation)
+
 
     # secret level
     dp.add_handler(CallbackQueryHandler(onboarding_handlers.secret_level, pattern=f"^{SECRET_LEVEL_BUTTON}"))
@@ -126,14 +126,13 @@ def set_up_commands(bot_instance: Bot) -> None:
             'add': 'Add place',
             'list': 'get list of locations',
             'reset': 'delete all locations from list',
-            'cancel': 'cancel conversation',
+            'cancel': 'cancel',
+            'currency': 'Request currency rate',
             'stats': 'Statistics of bot 📊',
             'admin': 'Show admin info ℹ️',
             'ask_location': 'Send location 📍',
             'broadcast': 'Broadcast message 📨',
             'export_users': 'Export users.csv 👥',
-            'request_currency': 'Request currency rate',
-
         },
         'es': {
             'start': 'Iniciar el bot de django 🚀',
@@ -146,7 +145,7 @@ def set_up_commands(bot_instance: Bot) -> None:
             'ask_location': 'Enviar ubicación 📍',
             'broadcast': 'Mensaje de difusión 📨',
             'export_users': 'Exportar users.csv 👥',
-            'request_currency': 'Request currency rate',
+            'currency': 'Request currency rate',
         },
         'fr': {
             'start': 'Démarrer le bot Django 🚀',
@@ -159,7 +158,7 @@ def set_up_commands(bot_instance: Bot) -> None:
             'ask_location': 'Envoyer emplacement 📍',
             'broadcast': 'Message de diffusion 📨',
             "export_users": 'Exporter users.csv 👥',
-            'request_currency': 'Request currency rate',
+            'currency': 'Request currency rate',
         },
         'ru': {
             'start': 'Запустить django бота 🚀',
@@ -167,12 +166,13 @@ def set_up_commands(bot_instance: Bot) -> None:
             'list': 'Получить список мест',
             'reset': 'Удалить список мест',
             'cancel': 'прервать сохранение места',
+            'currency': 'Запрос курса конвертации $',
             'stats': 'Статистика бота 📊',
             'admin': 'Показать информацию для админов ℹ️',
             'broadcast': 'Отправить сообщение 📨',
             'ask_location': 'Отправить локацию 📍',
             'export_users': 'Экспорт users.csv 👥',
-            'request_currency': 'Запрос курса конвертации $'
+
         }
     }
 

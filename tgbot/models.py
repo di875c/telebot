@@ -80,12 +80,12 @@ class Location(CreateTracker):
     latitude = models.FloatField()
     longitude = models.FloatField()
     # address = models.CharField(max_length=512, null=True, blank=True)
-    image = models.FileField(upload_to='uploads/')
+    # image = models.FileField(upload_to='uploads/')
     description = models.CharField(max_length=512, null=True, blank=True)
     objects = GetOrNoneManager()
 
     def __str__(self):
-        return f"description: {self.description}, address {self.latitude} {self.longitude}"
+        return f"description: {self.description}"
 
     # def save(self, *args, **kwargs):
     #     super(Location, self).save(*args, **kwargs)
@@ -98,5 +98,5 @@ class Location(CreateTracker):
 
 
 class Currency(CreateTracker):
-    date_request = models.DateField()
-    xml = models.JSONField()
+    date_request = models.CharField(max_length=48)
+    xml = models.CharField(max_length=6000)
