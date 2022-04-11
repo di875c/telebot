@@ -10,7 +10,7 @@ from telegram import Bot, Update, BotCommand
 from telegram.ext import (
     Updater, Dispatcher, Filters,
     CommandHandler, MessageHandler,
-    CallbackQueryHandler,
+    CallbackQueryHandler
 )
 
 from dtb.celery import app  # event processing in async mode
@@ -20,7 +20,6 @@ from tgbot.handlers.utils import files, error
 from tgbot.handlers.admin import handlers as admin_handlers
 from tgbot.handlers.location import handlers as location_handlers
 from tgbot.handlers.currency import handlers as currency_handlers
-from tgbot.handlers.currency.static_text import currency_dict
 from tgbot.handlers.onboarding import handlers as onboarding_handlers
 from tgbot.handlers.broadcast_message import handlers as broadcast_handlers
 from tgbot.handlers.onboarding.manage_data import SECRET_LEVEL_BUTTON
@@ -41,8 +40,12 @@ def setup_dispatcher(dp):
     dp.add_handler(CommandHandler('export_users', admin_handlers.export_users))
 
     # location
+    # dp.add_handler(CommandHandler("add", location_handlers.add_place))
+    dp.add_handler(CommandHandler("list", location_handlers.list_location))
+    dp.add_handler(CommandHandler("reset", location_handlers.reset_location))
     dp.add_handler(CommandHandler("ask_location", location_handlers.ask_for_location))
-    dp.add_handler(MessageHandler(Filters.location, location_handlers.location_handler))
+    #dp.add_handler(MessageHandler(Filters.location, location_handlers.location_handler))
+    dp.add_handler(location_handlers.conv_handler)
 
     # currency
     dp.add_handler(CommandHandler("request_currency", currency_handlers.request_currency))
@@ -120,15 +123,24 @@ def set_up_commands(bot_instance: Bot) -> None:
     langs_with_commands: Dict[str, Dict[str, str]] = {
         'en': {
             'start': 'Start django bot 🚀',
+            'add': 'Add place',
+            'list': 'get list of locations',
+            'reset': 'delete all locations from list',
+            'cancel': 'cancel conversation',
             'stats': 'Statistics of bot 📊',
             'admin': 'Show admin info ℹ️',
             'ask_location': 'Send location 📍',
             'broadcast': 'Broadcast message 📨',
             'export_users': 'Export users.csv 👥',
             'request_currency': 'Request currency rate',
+
         },
         'es': {
             'start': 'Iniciar el bot de django 🚀',
+            'add': 'Add place',
+            'list': 'get list of locations',
+            'reset': 'delete all locations from list',
+            'cancel': 'cancel conversation',
             'stats': 'Estadísticas de bot 📊',
             'admin': 'Mostrar información de administrador ℹ️',
             'ask_location': 'Enviar ubicación 📍',
@@ -138,6 +150,10 @@ def set_up_commands(bot_instance: Bot) -> None:
         },
         'fr': {
             'start': 'Démarrer le bot Django 🚀',
+            'add': 'Add place',
+            'list': 'get list of locations',
+            'reset': 'delete all locations from list',
+            'cancel': 'cancel conversation',
             'stats': 'Statistiques du bot 📊',
             'admin': "Afficher les informations d'administrateur ℹ️",
             'ask_location': 'Envoyer emplacement 📍',
@@ -147,6 +163,10 @@ def set_up_commands(bot_instance: Bot) -> None:
         },
         'ru': {
             'start': 'Запустить django бота 🚀',
+            'add': 'Добавить новое место',
+            'list': 'Получить список мест',
+            'reset': 'Удалить список мест',
+            'cancel': 'прервать сохранение места',
             'stats': 'Статистика бота 📊',
             'admin': 'Показать информацию для админов ℹ️',
             'broadcast': 'Отправить сообщение 📨',

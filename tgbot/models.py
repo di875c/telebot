@@ -79,22 +79,24 @@ class Location(CreateTracker):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     latitude = models.FloatField()
     longitude = models.FloatField()
-
+    # address = models.CharField(max_length=512, null=True, blank=True)
+    image = models.FileField(upload_to='uploads/')
+    description = models.CharField(max_length=512, null=True, blank=True)
     objects = GetOrNoneManager()
 
     def __str__(self):
-        return f"user: {self.user}, created at {self.created_at.strftime('(%H:%M, %d %B %Y)')}"
+        return f"description: {self.description}, address {self.latitude} {self.longitude}"
 
-    def save(self, *args, **kwargs):
-        super(Location, self).save(*args, **kwargs)
-        # Parse location with arcgis
-        from arcgis.tasks import save_data_from_arcgis
-        if DEBUG:
-            save_data_from_arcgis(latitude=self.latitude, longitude=self.longitude, location_id=self.pk)
-        else:
-            save_data_from_arcgis.delay(latitude=self.latitude, longitude=self.longitude, location_id=self.pk)
+    # def save(self, *args, **kwargs):
+    #     super(Location, self).save(*args, **kwargs)
+    #     # Parse location with arcgis
+    #     from arcgis.tasks import save_data_from_arcgis
+    #     if DEBUG:
+    #         save_data_from_arcgis(latitude=self.latitude, longitude=self.longitude, location_id=self.pk)
+    #     else:
+    #         save_data_from_arcgis.delay(latitude=self.latitude, longitude=self.longitude, location_id=self.pk)
+
 
 class Currency(CreateTracker):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_request = models.DateField()
-    currensy_response = models.JSONField()
+    xml = models.JSONField()

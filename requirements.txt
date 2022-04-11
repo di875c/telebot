@@ -2,6 +2,7 @@ pytz
 requests
 python-dotenv
 ipython
+bs4
 
 # Django
 django
@@ -9,6 +10,7 @@ django-timezone-field
 django-cors-headers
 django-debug-toolbar
 whitenoise
+Pillow
 
 # Django 3.0 async requirements
 gunicorn
@@ -27,6 +29,7 @@ django-celery-beat
 
 # Telegram
 python-telegram-bot
+#telebot
 
 # monitoring
 # sentry-sdk
