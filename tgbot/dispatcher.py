@@ -25,7 +25,8 @@ from tgbot.handlers.broadcast_message import handlers as broadcast_handlers
 from tgbot.handlers.onboarding.manage_data import SECRET_LEVEL_BUTTON
 from tgbot.handlers.broadcast_message.manage_data import CONFIRM_DECLINE_BROADCAST
 from tgbot.handlers.broadcast_message.static_text import broadcast_command
-
+from queue import Queue
+from threading import Thread
 
 def setup_dispatcher(dp):
     """
@@ -113,6 +114,22 @@ except telegram.error.Unauthorized:
     sys.exit(1)
 
 
+n_workers = 0 if DEBUG else 4
+def setup():
+    _update_queue = Queue()
+    dispatcher = setup_dispatcher(Dispatcher(bot, update_queue=_update_queue, workers=n_workers, use_context=True))
+    thread = Thread(target=dispatcher.start, name='dispatcher')
+    thread.start()
+    return _update_queue
+
+#update_queue = setup()
+dispatcher = setup_dispatcher(Dispatcher(bot, None, workers=0, use_context=True))
+def webhook(update_json):
+    update = Update.de_json(update_json, bot)
+    #update_queue.put(update)
+    dispatcher.process_update(update)
+
+
 @app.task(ignore_result=True)
 def process_telegram_event(update_json):
     update = Update.de_json(update_json, bot)
@@ -190,5 +207,5 @@ def set_up_commands(bot_instance: Bot) -> None:
 # Likely, you'll get a flood limit control error, when restarting bot too often
 set_up_commands(bot)
 
-n_workers = 0 if DEBUG else 4
-dispatcher = setup_dispatcher(Dispatcher(bot, update_queue=None, workers=n_workers, use_context=True))
+# n_workers = 0 if DEBUG else 4
+# dispatcher = setup_dispatcher(Dispatcher(bot, update_queue=None, workers=n_workers, use_context=True))

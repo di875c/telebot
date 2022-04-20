@@ -44,5 +44,3 @@ def broadcast_message(
         time.sleep(max(sleep_between, 0.1))
 
     logger.info("Broadcast finished!")
-
-
