@@ -1,0 +1,25 @@
+block.row {
+ margin-right: 15px;
+ margin-left: 15px;
+ margin-top: 5px;
+ margin-bottom: 5px;
+}
+
+block.photo {
+align-self: center;
+}
+
+div.row{
+align-item: center;
+}
+
+a.skills {
+    background-color: #a5a3a3c2;
+    color: black;
+    text-decoration: none;
+}
+
+.header.resume {
+ margin-right: 55px;
+ margin-left: 55px;
+}

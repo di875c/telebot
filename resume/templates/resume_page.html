@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="/static/css/my_styles.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resume</title>
+    <div class = "col-sm-12" style="background-color: #bcc1cc;">
+        <div class = "row">
+            <div class="col-sm-7"><h1 class="header" style="text-align:center"><a id="header">Resume</a> </h1></div>
+            <div class="col-sm-4" style="text-align:end">
+                     <block class="col-1"><a class="link" href="/resume/error"> log_in</a></block>
+                     <block class="col-1"><a class="link" href="/resume/error"> register</a></block>
+            </div>
+        </div>
+    </div>
+</head>
+
+
+<body>
+    <div class = 'main-back'>
+        <block class = "row">
+            <div class = "col-sm-8" id="left-part-site">
+            <div class = "col-sm-12" id="main-user">
+                <div class = "row">
+                    <div class = "col-sm-4" id="avatar">
+                        <block class="photo"><image src = {%static "image/avatar.jpg" %} width=300px height=303px alt="Image not found"></image></block>
+                    </div>
+                    <div class = "col-sm-8" id="content">
+                        <h3>Козлов Александр Евгеньевич</h3>
+                        <h5>дата рождения: </h5> <a>13.11.1983</a>
+                        <h5>образование: Высшее</h5>
+                        <a>Самарский Государственный Аэрокосмический Университет им. академика С.П. Королева, Самара</a>
+                        <h5>Обо мне:</h5>
+                        <a>{{about_me}}</a>
+
+                    </div>
+                </div>
+            </div>
+            <hr>
+                <h3 style="text-align:center">Ключевые навыки</h3>
+                {% for skill in skill_list %}
+                <a class="skills"">{{skill}}</a>
+                {% endfor %}
+                <hr>
+                <h3 style="text-align:center"> Опыт Работы</h3>
+                {% for work in work_list %}
+                <div class=work>
+                    <h5><a class="link" href="{{work.link}}">{{work.work_name}}</a></h5>
+                        <a>{{work.description}}</a>
+                </div>
+                <hr>
+                {% endfor %}
+
+
+        </div>
+            <div class = "col-sm-2" id="right-part-site">
+            <div class = "#" id="Certificates" style="item-align: end">
+                <h3>Certificates</h3>
+                <ul><a class="link" href="https://www.coursera.org/verify/ET92M7W39ZY9"> <image src = {%static "image/Coursera1.png" %} width=100% height=100% alt="Image not found"></image> </a>
+                    <a class="link" href="https://www.coursera.org/verify/RE7HLFSTM6LY"> <image src = {%static "image/Coursera2.png" %} width=100% height=100% alt="Image not found"></image> </a>
+                    <a class="link" href="https://www.coursera.org/verify/2YY93CND79C4"> <image src = {%static "image/Coursera3.png" %} width=100% height=100% alt="Image not found"></image> </a>
+                    <a class="link" href="https://www.mbschool.ru/"> <image src = {%static "image/MBS1.png" %} width=100% height=100% alt="Image not found"></image> </a>
+                    <a class="link" href="https://www.cbsd.ru/"> <image src = {%static "image/CBSD1.png" %} width=100% height=100% alt="Image not found"></image> </a>
+                    <a class="link" href="https://www.cbsd.ru/"> <image src = {%static "image/CBSD2.png" %} width=100% height=100% alt="Image not found"></image> </a>
+                    <a class="link" href="https://www.cbsd.ru/"> <image src = {%static "image/CBSD3.png" %} width=100% height=100% alt="Image not found"></image> </a>
+                    <a class="link" href="https://www.cbsd.ru/"> <image src = {%static "image/CBSD4.png" %} width=100% height=100% alt="Image not found"></image> </a>
+                </ul>
+            </div>
+        </div>
+        </block>
+
+    </div>
+
+</body>
+</html>
+
