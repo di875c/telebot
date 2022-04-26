@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from dtb.settings import DEBUG
 from tgbot.dispatcher import process_telegram_event, webhook
-from resume.static.text.static_text import work_list, skills_list, about_me
+from resume.static.text.static_text import work_list, skills_list, about_me, contact
 
 
 def index(request):
@@ -36,4 +36,5 @@ class ResumeView(View):
     
     def get(self, request, *args, **kwargs):  # for debug
 
-        return render(request, 'resume_page.html', {'work_list':work_list, 'skill_list':skills_list, 'about_me':about_me})
+        return render(request, 'resume_page.html', {'work_list':work_list, 'skill_list':skills_list, 'about_me':about_me,
+                                                    'contact': contact})
